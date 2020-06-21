@@ -81,7 +81,7 @@ void CSatchelCharge :: Spawn( void )
 	SetUse(&CSatchelCharge :: DetonateUse );
 	SetThink(&CSatchelCharge :: SatchelThink );
 	SetNextThink( 0.1 );
-
+	
 	pev->gravity = 0.5;
 	pev->friction = 0.8;
 
@@ -147,6 +147,7 @@ void CSatchelCharge :: SatchelThink( void )
 	{
 		pev->velocity.z -= 8;
 	}	
+
 }
 
 void CSatchelCharge :: Precache( void )
@@ -307,7 +308,7 @@ BOOL CSatchel::Deploy( )
 
 void CSatchel::Holster( int skiplocal /* = 0 */ )
 {
-	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
+	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
 	
 	if ( m_chargeReady )
 	{

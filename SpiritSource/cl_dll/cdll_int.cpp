@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   Use, distribution, and modification of this source code and/or resulting
@@ -22,6 +22,7 @@
 #include "cl_util.h"
 #include "netadr.h"
 #include "vgui_schememanager.h"
+#include "mp3.h" //AJH - Killars MP3player
 
 extern "C"
 {
@@ -38,6 +39,8 @@ extern "C"
 
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
+CMP3 gMP3; //AJH - Killars MP3player
+
 TeamFortressViewport *gViewPort = NULL;
 
 void InitInput (void);
@@ -45,13 +48,18 @@ void EV_HookEvents( void );
 void IN_Commands( void );
 
 /*
-========================== 
+==========================
     Initialize
 
 Called when the DLL is first loaded.
 ==========================
 */
-extern "C" 
+
+// SCREEN GLOW FragBait0
+extern void InitScreenGlow(); // FragBait0 - Glow Effect
+extern void RenderScreenGlow(); // FragBait0 - Glow Effect
+
+extern "C"
 {
 int		DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion );
 int		DLLEXPORT HUD_VidInit( void );
@@ -170,6 +178,8 @@ int DLLEXPORT HUD_VidInit( void )
 
 	VGui_Startup();
 
+	if (CVAR_GET_FLOAT("r_glow") != 0)	 //check the cvar for the glow is on.//AJH Modified to include glow mode (1&2)
+		InitScreenGlow(); // glow effect --FragBait0
 	return 1;
 }
 
@@ -178,7 +188,7 @@ int DLLEXPORT HUD_VidInit( void )
 	HUD_Init
 
 Called whenever the client connects
-to a server.  Reinitializes all 
+to a server.  Reinitializes all
 the hud variables.
 ==========================
 */
@@ -202,6 +212,9 @@ redraw the HUD.
 
 int DLLEXPORT HUD_Redraw( float time, int intermission )
 {
+	if (CVAR_GET_FLOAT("r_glow") != 0)	 //check the cvar for the glow is on.//AJH Modified to include glow mode (1&2)
+		RenderScreenGlow(); // glow effect --FragBait0
+
 	gHUD.Redraw( time, intermission );
 
 	return 1;

@@ -26,6 +26,10 @@ extern "C"
 	void DLLEXPORT HUD_DrawTransparentTriangles( void );
 };
 
+	
+	
+
+
 extern float g_fFogColor[4];
 extern float g_fStartDist;
 extern float g_fEndDist;
@@ -44,9 +48,9 @@ int UseTexture(HSPRITE &hsprSpr, char * str)
 	return gEngfuncs.pTriAPI->SpriteTexture( (struct model_s *)gEngfuncs.GetSpritePointer( hsprSpr ), 0 );
 }
 
-//
+
 //-----------------------------------------------------
-//
+
 
 //LRC - code for CShinySurface, declared in hud.h
 CShinySurface::CShinySurface( float fScale, float fAlpha, float fMinX, float fMaxX, float fMinY, float fMaxY, float fZ, char *szSprite)

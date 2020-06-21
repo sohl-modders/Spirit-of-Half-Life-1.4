@@ -44,7 +44,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /YX /c
-# ADD CPP /nologo /G5 /MT /W3 /Zi /O2 /I "..\dlls" /I "..\engine" /I "..\common" /I "..\pm_shared" /I "..\game_shared" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "QUIVER" /D "VOXEL" /D "QUAKE2" /D "VALVE_DLL" /D "CLIENT_WEAPONS" /Fr /YX /FD /c
+# ADD CPP /nologo /G5 /MT /W3 /O1 /I "..\dlls" /I "..\engine" /I "..\common" /I "..\pm_shared" /I "..\game_shared" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "QUIVER" /D "VOXEL" /D "QUAKE2" /D "VALVE_DLL" /D "CLIENT_WEAPONS" /Fr /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -54,15 +54,15 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /dll /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib /nologo /subsystem:windows /dll /map /debug /machine:I386 /def:".\hl.def" /out:".\Releasehl/spirit.dll"
-# SUBTRACT LINK32 /profile
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib /nologo /subsystem:windows /dll /machine:I386 /def:".\hl.def" /out:".\Releasehl/spirit.dll"
+# SUBTRACT LINK32 /profile /map /debug
 # Begin Custom Build
 TargetDir=.\Releasehl
 InputPath=.\Releasehl\spirit.dll
 SOURCE="$(InputPath)"
 
-"C:\games\half-life\spiritdev\dlls\spirit.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(TargetDir)\spirit.dll "C:\games\half-life\spiritdev\dlls\spirit.dll"
+"c:\games\half-life\spiritdev\dlls\spirit.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(TargetDir)\spirit.dll "c:\games\half-life\spiritdev\dlls\spirit.dll"
 
 # End Custom Build
 
@@ -97,8 +97,8 @@ TargetDir=.\debughl
 InputPath=.\debughl\spirit.dll
 SOURCE="$(InputPath)"
 
-"C:\sierra\half-life\spiritdev\dlls\spirit.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(TargetDir)\spirit.dll "C:\sierra\half-life\spiritdev\dlls\spirit.dll"
+"D:\sierra\half-life\spirit\cl_dlls\server.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(TargetDir)\spirit.dll "D:\sierra\half-life\spirit\cl_dlls\server.dll"
 
 # End Custom Build
 
@@ -134,8 +134,8 @@ TargetDir=.\Profilehl
 InputPath=.\Profilehl\spirit.dll
 SOURCE="$(InputPath)"
 
-"C:\sierra\half-life\spiritdev\dlls\spirit.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(TargetDir)\spirit.dll "C:\sierra\half-life\spiritdev\dlls\spirit.dll"
+"c:\games\half-life\spirit\dlls\spirit14.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(TargetDir)\spirit.dll "C:\games\half-life\spirit\dlls\spirit14.dll"
 
 # End Custom Build
 
@@ -235,6 +235,10 @@ SOURCE=.\crowbar.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\debugger.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\defaultai.cpp
 # End Source File
 # Begin Source File
@@ -295,6 +299,10 @@ SOURCE=.\globals.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\glock.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\gman.cpp
 # End Source File
 # Begin Source File
@@ -336,10 +344,6 @@ SOURCE=.\healthkit.cpp
 # Begin Source File
 
 SOURCE=.\hgrunt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\wpn_shared\hl_wpn_glock.cpp
 # End Source File
 # Begin Source File
 

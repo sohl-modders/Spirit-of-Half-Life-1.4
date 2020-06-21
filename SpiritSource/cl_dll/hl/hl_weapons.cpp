@@ -67,7 +67,6 @@ CSatchel g_Satchel;
 CTripmine g_Tripmine;
 CSqueak g_Snark;
 
-
 /*
 ======================
 AlertMessage
@@ -221,9 +220,9 @@ BOOL CBasePlayerWeapon :: DefaultDeploy( char *szViewModel, char *szWeaponModel,
 		return FALSE;
 
 	gEngfuncs.CL_LoadModel( szViewModel, &m_pPlayer->pev->viewmodel );
-	
-	SendWeaponAnim( iAnim, skiplocal, body );
 
+//	SendWeaponAnim( iAnim, skiplocal, body );
+	
 	g_irunninggausspred = false;
 	m_pPlayer->m_flNextAttack = 0.5;
 	m_flTimeWeaponIdle = 1.0;
@@ -416,15 +415,13 @@ void CBasePlayer::SelectItem(const char *pstr)
 		return;
 
 	if (m_pActiveItem)
-		m_pActiveItem->Holster( );
+		m_pActiveItem->Holster();
 	
 	m_pLastItem = m_pActiveItem;
 	m_pActiveItem = pItem;
 
 	if (m_pActiveItem)
-	{
-		m_pActiveItem->Deploy( );
-	}
+		m_pActiveItem->Deploy();
 }
 
 /*
@@ -436,22 +433,18 @@ CBasePlayer::SelectLastItem
 void CBasePlayer::SelectLastItem(void)
 {
 	if (!m_pLastItem)
-	{
 		return;
-	}
 
 	if ( m_pActiveItem && !m_pActiveItem->CanHolster() )
-	{
 		return;
-	}
 
 	if (m_pActiveItem)
-		m_pActiveItem->Holster( );
+		m_pActiveItem->Holster();
 	
 	CBasePlayerItem *pTemp = m_pActiveItem;
 	m_pActiveItem = m_pLastItem;
 	m_pLastItem = pTemp;
-	m_pActiveItem->Deploy( );
+	m_pActiveItem->Deploy();
 }
 
 /*
@@ -465,6 +458,8 @@ void CBasePlayer::Killed( entvars_t *pevAttacker, int iGib )
 	// Holster weapon immediately, to allow it to cleanup
 	if ( m_pActiveItem )
 		 m_pActiveItem->Holster( );
+
+	m_pNextItem = NULL;
 	
 	g_irunninggausspred = false;
 }
@@ -478,8 +473,12 @@ CBasePlayer::Spawn
 void CBasePlayer::Spawn( void )
 {
 	if (m_pActiveItem)
-		m_pActiveItem->Deploy( );
-
+	{
+		m_pActiveItem = m_pNextItem;
+		m_pActiveItem->Deploy();
+		m_pActiveItem->UpdateItemInfo();
+		m_pNextItem = NULL;
+	}
 	g_irunninggausspred = false;
 }
 
@@ -718,7 +717,7 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 		case WEAPON_PYTHON:
 			pWeapon = &g_Python;
 			break;
-			
+		
 		case WEAPON_MP5:
 			pWeapon = &g_Mp5;
 			break;
@@ -852,8 +851,8 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 	player.m_flAmmoStartCharge = from->client.fuser3;
 
 	//Stores all our ammo info, so the client side weapons can use them.
-	player.ammo_9mm			= (int)from->client.vuser1[0];
-	player.ammo_357			= (int)from->client.vuser1[1];
+	player.ammo_9mm		= (int)from->client.vuser1[0];
+	player.ammo_357		= (int)from->client.vuser1[1];
 	player.ammo_argrens		= (int)from->client.vuser1[2];
 	player.ammo_bolts		= (int)from->client.ammo_nails; //is an int anyways...
 	player.ammo_buckshot	= (int)from->client.ammo_shells; 

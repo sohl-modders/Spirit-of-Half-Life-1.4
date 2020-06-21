@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   Use, distribution, and modification of this source code and/or resulting
@@ -12,7 +12,7 @@
 *   without written permission from Valve LLC.
 *
 ****/
-//			
+//
 //  hud.h
 //
 // class CHud declaration
@@ -32,7 +32,7 @@
 #define DHN_DRAWZERO 1
 #define DHN_2DIGITS  2
 #define DHN_3DIGITS  4
-#define MIN_ALPHA	 100	
+#define MIN_ALPHA	 100
 
 #define		HUDELEM_ACTIVE	1
 
@@ -40,8 +40,8 @@ typedef struct {
 	int x, y;
 } POSITION;
 
-enum 
-{ 
+enum
+{
 	MAX_PLAYERS = 64,
 	MAX_TEAMS = 64,
 	MAX_TEAM_NAME = 16,
@@ -69,7 +69,7 @@ class CHudBase
 public:
 	POSITION  m_pos;
 	int   m_type;
-	int	  m_iFlags; // active, moving, 
+	int	  m_iFlags; // active, moving,
 	virtual		~CHudBase() {}
 	virtual int Init( void ) {return 0;}
 	virtual int VidInit( void ) {return 0;}
@@ -180,7 +180,7 @@ public:
 	int VidInit( void );
 	int Draw(float flTime);
 	int MsgFunc_Geiger(const char *pszName, int iSize, void *pbuf);
-	
+
 private:
 	int m_iGeigerRange;
 
@@ -243,7 +243,7 @@ public:
 	int MsgFunc_StatusValue( const char *pszName, int iSize, void *pbuf );
 
 protected:
-	enum { 
+	enum {
 		MAX_STATUSTEXT_LENGTH = 128,
 		MAX_STATUSBAR_VALUES = 8,
 		MAX_STATUSBAR_LINES = 2,
@@ -294,7 +294,7 @@ private:
 };
 */
 
-struct extra_player_info_t 
+struct extra_player_info_t
 {
 	short frags;
 	short deaths;
@@ -303,7 +303,7 @@ struct extra_player_info_t
 	char teamname[MAX_TEAM_NAME];
 };
 
-struct team_info_t 
+struct team_info_t
 {
 	char name[MAX_TEAM_NAME];
 	short frags;
@@ -391,13 +391,13 @@ public:
 	int VidInit( void );
 	int Draw(float flTime);
 	int MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf );
-	
+
 private:
 	HSPRITE m_hSprite1;
 	HSPRITE m_hSprite2;
 	wrect_t *m_prc1;
 	wrect_t *m_prc2;
-	int	  m_iBat;	
+	int	  m_iBat;
 	float m_fFade;
 	int	  m_iHeight;		// width of the battery innards
 };
@@ -415,7 +415,7 @@ public:
 	void Reset( void );
 	int MsgFunc_Flashlight(const char *pszName,  int iSize, void *pbuf );
 	int MsgFunc_FlashBat(const char *pszName,  int iSize, void *pbuf );
-	
+
 private:
 	HSPRITE m_hSprite1;
 	HSPRITE m_hSprite2;
@@ -423,8 +423,8 @@ private:
 	wrect_t *m_prc1;
 	wrect_t *m_prc2;
 	wrect_t *m_prcBeam;
-	float m_flBat;	
-	int	  m_iBat;	
+	float m_flBat;
+	int	  m_iBat;
 	int	  m_fOn;
 	float m_fFade;
 	int	  m_iWidth;		// width of the battery innards
@@ -527,12 +527,12 @@ public:
 	int Draw(float flTime);
 	int MsgFunc_StatusIcon(const char *pszName, int iSize, void *pbuf);
 
-	enum { 
+	enum {
 		MAX_ICONSPRITENAME_LENGTH = MAX_SPRITE_NAME_LENGTH,
 		MAX_ICONSPRITES = 4,
 	};
 
-	
+
 	//had to make these public so CHud could access them (to enable concussion icon)
 	//could use a friend declaration instead...
 	void EnableIcon( char *pszIconName, unsigned char red, unsigned char green, unsigned char blue );
@@ -588,6 +588,13 @@ public:
 #define SKY_OFF 0
 #define SKY_ON  1
 
+typedef struct cl_mirror_s
+{
+	vec3_t origin;
+	int enabled;
+	float radius;
+	int type;
+} cl_mirror_t;
 
 
 class CHud
@@ -600,7 +607,7 @@ private:
 	int							m_iSpriteCount;
 	int							m_iSpriteCountAllRes;
 	float						m_flMouseSensitivity;
-	int							m_iConcussionEffect; 
+	int							m_iConcussionEffect;
 
 public:
 
@@ -627,6 +634,10 @@ public:
 	int DrawHudStringReverse( int xpos, int ypos, int iMinX, char *szString, int r, int g, int b );
 	int DrawHudNumberString( int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b );
 	int GetNumWidth(int iNumber, int iFlags);
+	int viewEntityIndex; // for trigger_viewset
+	int viewFlags;
+	struct cl_mirror_s Mirrors[32]; //Limit - 32 mirrors!
+	int numMirrors;
 
 	int m_iHUDColor; //LRC
 
@@ -639,7 +650,7 @@ private:
 
 	struct cvar_s *default_fov;
 public:
-	HSPRITE GetSprite( int index ) 
+	HSPRITE GetSprite( int index )
 	{
 		return (index < 0) ? 0 : m_rghSprites[index];
 	}
@@ -649,7 +660,7 @@ public:
 		return m_rgrcRects[index];
 	}
 
-	
+
 	int GetSpriteIndex( const char *SpriteName );	// gets a sprite index, for use in the m_rghSprites[] array
 
 	CHudAmmo		m_Ammo;
@@ -687,12 +698,13 @@ public:
 	void _cdecl MsgFunc_ViewMode( const char *pszName, int iSize, void *pbuf );
 	int _cdecl MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf);
 	int  _cdecl MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf );
-
+    int  _cdecl MsgFunc_PlayMP3( const char *pszName, int iSize, void *pbuf );		//KILLAR
 	int _cdecl MsgFunc_HUDColor(const char *pszName,  int iSize, void *pbuf);		//LRC
 	void _cdecl MsgFunc_SetFog( const char *pszName, int iSize, void *pbuf );		//LRC
-	void _cdecl MsgFunc_KeyedDLight( const char *pszName, int iSize, void *pbuf );	//LRC
+	void _cdecl MsgFunc_KeyedDLight( const char *pszName, int iSize, void *pbuf );		//LRC
 	void _cdecl MsgFunc_SetSky( const char *pszName, int iSize, void *pbuf );		//LRC
-    void _cdecl MsgFunc_AddShine( const char *pszName, int iSize, void *pbuf );     //LRC
+	int  _cdecl MsgFunc_CamData( const char *pszName, int iSize, void *pbuf );
+    	void _cdecl MsgFunc_AddShine( const char *pszName, int iSize, void *pbuf );    		//LRC
 
 	// Screen information
 	SCREENINFO	m_scrinfo;

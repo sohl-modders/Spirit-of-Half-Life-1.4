@@ -38,6 +38,8 @@ cvar_t	teamlist = {"mp_teamlist","hgrunt;scientist", FCVAR_SERVER };
 cvar_t	teamoverride = {"mp_teamoverride","1" };
 cvar_t	defaultteam = {"mp_defaultteam","0" };
 cvar_t	allowmonsters={"mp_allowmonsters","0", FCVAR_SERVER };
+cvar_t	mp3player = { "mp3player", "1", FCVAR_SERVER };
+cvar_t	mp3volume = { "mp3volume", "1", FCVAR_SERVER };
 
 cvar_t	impulsetarget={"sohl_impulsetarget","0", FCVAR_SERVER }; //LRC - trigger ents manually
 cvar_t	mw_debug={"sohl_mwdebug","0", FCVAR_SERVER }; //LRC - debug info. for MoveWith. (probably not useful for most people.)
@@ -483,7 +485,9 @@ void GameDLLInit( void )
 	CVAR_REGISTER (&allowmonsters);
 	CVAR_REGISTER (&impulsetarget); //LRC
 	CVAR_REGISTER (&mw_debug); //LRC
-
+	//CVAR_REGISTER (&mp3player); //G-Cont. Stuff for Mp3 player	//AJH - Too late, I've already added mp3/ogg
+    //CVAR_REGISTER (&mp3volume); //G-Cont. Stuff for Mp3 player	//AJH
+	
 	CVAR_REGISTER (&mp_chattime);
 
 // REGISTER CVARS FOR SKILL LEVEL STUFF

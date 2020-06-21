@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /YX /c
-# ADD CPP /nologo /MT /W3 /GX /Zi /O2 /I "..\utils\vgui\include" /I "..\engine" /I "..\common" /I "..\pm_shared" /I "..\dlls" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "CLIENT_DLL" /D "CLIENT_WEAPONS" /FR /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /Zi /O1 /I "..\utils\vgui\include" /I "..\engine" /I "..\common" /I "..\pm_shared" /I "..\dlls" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "CLIENT_DLL" /D "CLIENT_WEAPONS" /Fr /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -53,14 +53,15 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /dll /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib winmm.lib ../utils/vgui/lib/win32_vc6/vgui.lib wsock32.lib /nologo /subsystem:windows /dll /map /machine:I386 /out:".\Release\client.dll"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib winmm.lib ../utils/vgui/lib/win32_vc6/vgui.lib wsock32.lib opengl32.lib ../common/cg/cg.lib ../common/cg/cgGL.lib /nologo /subsystem:windows /dll /machine:I386 /out:".\Release\client.dll"
+# SUBTRACT LINK32 /map
 # Begin Custom Build
 TargetDir=.\Release
 InputPath=.\Release\client.dll
 SOURCE="$(InputPath)"
 
-"C:\games\half-life\spiritdev\cl_dlls\client.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(TargetDir)\client.dll "C:\games\half-life\spiritdev\cl_dlls\client.dll"
+"c:\games\half-life\spiritdev\cl_dlls\client.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(TargetDir)\client.dll "c:\games\half-life\spiritdev\cl_dlls\client.dll"
 
 # End Custom Build
 
@@ -94,8 +95,8 @@ TargetDir=.\Debug
 InputPath=.\Debug\client.dll
 SOURCE="$(InputPath)"
 
-"C:\sierra\Half-Life\spiritdev\cl_dlls\client.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy $(TargetDir)\client.dll "C:\sierra\Half-Life\spiritdev\cl_dlls\client.dll"
+"D:\sierra\half-life\spirit\cl_dlls\client.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	copy $(TargetDir)\client.dll "D:\sierra\half-life\spirit\cl_dlls\client.dll"
 
 # End Custom Build
 
@@ -133,6 +134,10 @@ SOURCE=..\dlls\gauss.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\dlls\glock.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\dlls\handgrenade.cpp
 # End Source File
 # Begin Source File
@@ -153,15 +158,15 @@ SOURCE=.\hl\hl_weapons.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\dlls\wpn_shared\hl_wpn_glock.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\dlls\hornetgun.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\common\interface.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\mp3.cpp
 # End Source File
 # Begin Source File
 
@@ -267,6 +272,10 @@ SOURCE=.\GameStudioModelRenderer.cpp
 # Begin Source File
 
 SOURCE=.\geiger.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\glow.cpp
 # End Source File
 # Begin Source File
 
@@ -532,6 +541,10 @@ SOURCE=..\common\itrackeruser.h
 # Begin Source File
 
 SOURCE=.\kbutton.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\mp3.h
 # End Source File
 # Begin Source File
 
